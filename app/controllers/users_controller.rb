@@ -17,14 +17,23 @@ class UsersController < ApplicationController
 
 	post '/users' do
 	  # receive the params from the form submission and create a new user
-	  	@user = User.create(params[:user])
-   
-    redirect "users/#{@user.id}"
+	  	
+	  	@user = User.new(:username => params[:username],:password => params[:password])
+	  	binding.pry
+   		
+
+   		if @user.username != "" && @user.password_digest != ""
+   			@user.save
+   			redirect "/users/#{@user.id}"
+   		else
+   			redirect "/users/failure"
+   		end
 
 	end
 
 	get '/users/:id' do 
 		# displays the user page with their recipes, link to edit/add
+
 		erb :'/users/show'
 	end
 
