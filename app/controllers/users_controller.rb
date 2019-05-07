@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
 
 	get '/' do 
+		
+		if session[:user_id]
+			@current_user = session[:username]
 		binding.pry
+		else
+			@current_user = "Please log in"
+		end
 		# login/out or create a new user, homepage
 		erb :'/users/index'
 	end
@@ -59,8 +65,8 @@ class UsersController < ApplicationController
 		
 
 		if @user && @user.authenticate(params[:password])
-			binding.pry
 		    session[:user_id] = @user.id
+		    session[:username] = @user.username
 		    redirect "/users/#{@user.id}"
 	  	else
 		    redirect "/users/failure"
