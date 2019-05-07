@@ -19,8 +19,6 @@ class UsersController < ApplicationController
 	  # receive the params from the form submission and create a new user
 	  	
 	  	@user = User.new(:username => params[:username],:password => params[:password])
-	  	binding.pry
-   		
 
    		if @user.username != "" && @user.password_digest != ""
    			@user.save
@@ -33,7 +31,7 @@ class UsersController < ApplicationController
 
 	get '/users/:id' do 
 		# displays the user page with their recipes, link to edit/add
-
+		 @user = User.find(params[:id])
 		erb :'/users/show'
 	end
 
