@@ -15,16 +15,21 @@ class UsersController < ApplicationController
     	erb :'/users/new'
 	end
 
+	get '/users/failure' do 
+		erb :'/users/failure'
+	end
+
 	post '/users' do
 	  # receive the params from the form submission and create a new user
 	  	
 	  	@user = User.new(:username => params[:username],:password => params[:password])
-
-   		if @user.username != "" && @user.password_digest != ""
+	  	
+   		if @user.username == "" || @user.password_digest == nil
+   			redirect "/users/failure"
+   		else
    			@user.save
    			redirect "/users/#{@user.id}"
-   		else
-   			redirect "/users/failure"
+   			
    		end
 
 	end
