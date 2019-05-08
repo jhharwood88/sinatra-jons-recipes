@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 		
 		if session[:user_id]
 			@current_user = session[:username]
-		binding.pry
+			@user_id = session[:user_id]
 		else
 			@current_user = "Please log in"
 		end
@@ -57,6 +57,7 @@ class UsersController < ApplicationController
 	get '/users/:id' do 
 		# displays the user page with their recipes, link to edit/add
 		 @user = User.find(params[:id])
+
 		erb :'/users/show'
 	end
 

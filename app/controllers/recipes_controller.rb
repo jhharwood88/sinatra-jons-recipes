@@ -1,29 +1,29 @@
 class RecipesController < ApplicationController
-  get '/recipes/index' do 
-  	# list all the available recipes to choose from
-  end
-
-  get '/recipes/:id' do 
-  	# display particular recipe/ link to edit / link to delete
+  
+  get '/recipes/:id' do
+    @all_recipes = Recipe.all
+    @user_id = session[:user_id]
+    erb :'/recipes/show'
   end
 
   get '/recipes/new' do
     # load the new recipe form
+     erb :'/recipes/new'
   end
 
   post '/recipes' do
     # receive the params from the form submission and create a new recipe
   end
 
-  get '/recipes/:id/edit' do 
-  	# load the edit form / load button for recipe deletion
+  get '/recipes/edit' do 
+  	 erb :'/recipes/edit'
   end
 
-  patch '/recipes/:id/edit' do 
+  patch '/recipes/:id' do 
   	# update the given recipe / check to make sure forms arent left blank
   end
 
-  delete '/recipes/:id/edit' do 
+  delete '/recipes/:id' do 
   	# remove the selected recipe from the DB
   end
 

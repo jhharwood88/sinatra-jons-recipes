@@ -1,0 +1,15 @@
+<h3><a href="/recipes/edit">Edit your recipe</a></h3>
+<h3><a href="/users/<%= @user_id %>"> Go to your userpage </a></h3>
+<ul>
+<% @all_recipes.each do |r| %>
+    <li>
+        <h1>
+          	<u><%= r.name.upcase %></u>
+          <br>
+           	Ingredients: <%= r.ingredients %>
+           <br>
+           	Procedures: <%= r.procedures %>
+        </h1>
+    </li>
+<% end %>
+</ul>

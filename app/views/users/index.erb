@@ -1,7 +1,16 @@
-<h1>Hello, <%=@current_user%>!</h1>
 
-<h3> <a href="/users/login">Log in</a></h3>
-<br>
-<h3> <a href="/users/logout">Log out</a></h3>
-<br>
-<h3> <a href="/users/new">Sign Up</a></h3>
+
+<% if logged_in? %>
+	    <center><h1>Welcome back, <%=@current_user%>!</h1></center>
+	    <%binding.pry%>
+        <center><a href="/users/<%= @user_id %>"> Go to your userpage </a></center>
+        
+      <% else %>
+      	<center><h1>Hello, <%=@current_user%>!</h1></center>
+      	<center><a href="/users/login"> Log In </a></center>
+      	<br>
+      	<br>
+        <center><a href="/users/new">New User</a></center>
+       
+<%end %>
+
