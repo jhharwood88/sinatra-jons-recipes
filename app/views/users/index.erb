@@ -2,7 +2,6 @@
 
 <% if logged_in? %>
 	    <center><h1>Welcome back, <%=@current_user%>!</h1></center>
-	    <%binding.pry%>
         <center><a href="/users/<%= @user_id %>"> Go to your userpage </a></center>
         
       <% else %>
