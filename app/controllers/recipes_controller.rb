@@ -6,13 +6,23 @@ class RecipesController < ApplicationController
      erb :'recipes/new'
   end
 
-  get '/recipes/edit' do 
+  get '/recipes/:id/edit' do
+     @recipe_id = params[:id].to_i
+     @user_id = session[:user_id]
      erb :'recipes/edit'
   end
 
   get '/recipes/:id' do
     @all_recipes = Recipe.all
+    @recipe_id = params[:id].to_i
+    @selected_recipe = []
     @user_id = session[:user_id]
+    @all_recipes.each do |recipe|
+      if recipe.id == @recipe_id
+        @selected_recipe << recipe
+        
+      end
+    end
     erb :'recipes/show'
   end
 
