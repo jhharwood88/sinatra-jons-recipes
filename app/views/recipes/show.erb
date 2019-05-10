@@ -1,5 +1,4 @@
-<%binding.pry%>
-<h3><a href="/recipes/<%= @recipe_id %>/edit">Edit your recipe</a></h3>
+<h3><a href="/recipes/<%= @recipe.id %>/edit">Edit your recipe</a></h3>
 <h3><a href="/users/<%= @user_id %>"> Go to your userpage </a></h3>
 <ul>
 <% @selected_recipe.each do |r| %>
@@ -14,3 +13,7 @@
     </li>
 <% end %>
 </ul>
+<form method="POST" action="/recipes/<%= @recipe.id %>">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="DELETE">
+</form>

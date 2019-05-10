@@ -1,2 +1,17 @@
-<h1>edit form <%= @recipe_id %></h1>
+<h1>Editing <%= @recipe.name.upcase %></h1>
+<% if @recipe.errors %>
+    <% @recipe.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+    <% end %>
+
+<% end %>
+
+<form method="POST" action="/recipes/<%= @recipe_id %>">
+    <input id="hidden" type="hidden" name="_method" value="patch" />
+    Name: <input name="name" type="text" value="<%= @recipe.name %>">
+    Ingredients: <input name="ingredients" type="text" value="<%= @recipe.ingredients %>">
+    Procedures: <input  name="procedures" type="text" value="<%= @recipe.procedures%>"> 
+    <input type="submit" value="Edit Recipe">
+</form>
+
 <h3><a href="/users/<%= @user_id %>"> Go to your userpage </a></h3>

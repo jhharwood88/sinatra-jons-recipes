@@ -9,16 +9,25 @@ class RecipesController < ApplicationController
   get '/recipes/:id/edit' do
      @recipe_id = params[:id].to_i
      @user_id = session[:user_id]
-     erb :'recipes/edit'
+     @recipe = Recipe.find_by_id(params["id"])
+        if @recipe
+          binding.pry
+            erb :'recipes/edit'
+        else
+
+            redirect "/recipes/<%= @recipe_id %>"
+        end
+     
   end
 
   get '/recipes/:id' do
+    @recipe = Recipe.find_by_id(params["id"])
     @all_recipes = Recipe.all
-    @recipe_id = params[:id].to_i
+    # @recipe_id = params[:id].to_i
     @selected_recipe = []
     @user_id = session[:user_id]
     @all_recipes.each do |recipe|
-      if recipe.id == @recipe_id
+      if recipe.id == @recipe.id
         @selected_recipe << recipe
         
       end
@@ -43,14 +52,26 @@ class RecipesController < ApplicationController
     
   end
 
-  
-
-  patch '/recipes/:id' do 
-  	# update the given recipe / check to make sure forms arent left blank
+  patch '/recipes/:id' do
+  # update the given recipe / check to make sure forms arent left blank
+    @recipe = Recipe.find_by_id(params["id"])
+        
+        if @recipe.update(name: params["name"], ingredients: params["ingredients"], procedures: params["procedures"])
+            redirect "/recipes/#{@recipe.id}"
+        else
+            erb :"/recipes/edit"
+        end 
+  	
   end
 
   delete '/recipes/:id' do 
-  	# remove the selected recipe from the DB
+  	@recipe = Recipe.find_by_id(params["id"])
+    @user_id = session[:user_id]
+      if @recipe.destroy
+         redirect "/users/#{@user_id}"
+      else
+         redirect "/recipes/#{@recipe.id}"
+     end
   end
 
 end
